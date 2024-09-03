@@ -13,7 +13,7 @@ def Rg(filename):
     Returns the Rg value in Angstrom.
     '''
     # Get coordinates and masses for each atom,
-    # ignoring lines that do not end with either: H, C, O, N, S
+    # ignoring lines that do not end with: H, C, O, N, or S
     coord = list()
     mass = list()
     Structure = open(filename, 'r')
@@ -37,14 +37,26 @@ def Rg(filename):
         except:
             pass
     
-    # Determine Center of Mass
-    
+    # Determine Center of Mass Coordinates and Total Mass
+    cmx,cmy,cmz,tmass=(0.0,0.0,0.0,0.0)
+    for (i, j, k), m in zip(coord, mass):
+        tmass+=m
+        cmx+=m*i
+        cmy+=m*j
+        cmz+=m*k
+    cmx/=tmass
+    cmy/=tmass
+    cmz/=tmass
+    print("Total mass using new way:", tmass)
+    # print("One can check the position in PyMOL with the command:")
+    # print("pseudoatom tmpPoint, pos=[", cmx, "," , cmy, "," , cmz, "]")
+        
     # Calculate Radius of Gyration
-    xm = [(m*i, m*j, m*k) for (i, j, k), m in zip(coord, mass)]
-    tmass = sum(mass)
-    rr = sum(mi*i + mj*j + mk*k for (i, j, k), (mi, mj, mk) in zip(coord, xm))
-    mm = sum((sum(i) / tmass)**2 for i in zip(*xm))
-    rg = math.sqrt(rr / tmass-mm)
+    rg = 0
+    for (i, j, k), m in zip(coord, mass):
+        rg+=m*((i-cmx)**2+(j-cmy)**2+(k-cmz)**2)
+    rg/=tmass
+    rg=math.sqrt(rg)
     return(round(rg, 1 ))
 
 if __name__ == '__main__':
