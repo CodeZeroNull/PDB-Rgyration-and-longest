@@ -3,6 +3,6 @@
 Structures (only atoms in protein) for hexamer, dimer and monomer of insulin molecules.
 Obtained from structures 1znj, 1mso, 2jv1, respectively.
 
-[1ZNJ (hexamer, X-Ray)](https://doi.org/10.2210/pdb1ZNJ/pdb)
-[1MSO (hexamer, X-Ray)](https://doi.org/10.2210/pdb1MSO/pdb)
-[2JV1 (monomer, NMR)](https://doi.org/10.2210/pdb2JV1/pdb)
+[1ZNJ, hexamer, X-Ray](https://doi.org/10.2210/pdb1ZNJ/pdb)
+[1MSO, hexamer, X-Ray](https://doi.org/10.2210/pdb1MSO/pdb)
+[2JV1, monomer, NMR](https://doi.org/10.2210/pdb2JV1/pdb)
