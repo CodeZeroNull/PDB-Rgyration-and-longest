@@ -6,11 +6,11 @@ import sys
 
 def Rg(filename):
     '''
-    Calculates the Radius of Gyration (Rg) of a protein given its .pdb 
-    structure file.
+    Given a PDB structure file, calculates the Radius of Gyration (Rg) and
+    the longest distance.
     NB: Only takes in account H, C, O, N and S atoms.
     
-    Returns the Rg value in Angstrom.
+    Returns the Rg and Longest values in Angstrom.
     '''
     # Get coordinates and masses for each atom,
     # ignoring lines that do not end with: H, C, O, N, or S
@@ -47,9 +47,8 @@ def Rg(filename):
     cmx/=tmass
     cmy/=tmass
     cmz/=tmass
-    print("Total mass using new way:", tmass)
-    # print("One can check the position in PyMOL with the command:")
-    # print("pseudoatom tmpPoint, pos=[", cmx, "," , cmy, "," , cmz, "]")
+    print("One can check the position in PyMOL with the command:")
+    print("pseudoatom tmpPoint, pos=[", cmx, "," , cmy, "," , cmz, "]")
         
     # Calculate Radius of Gyration
     rg = 0
@@ -57,7 +56,14 @@ def Rg(filename):
         rg+=m*((i-cmx)**2+(j-cmy)**2+(k-cmz)**2)
     rg/=tmass
     rg=math.sqrt(rg)
-    return(round(rg, 1 ))
+    print("One can check the radius of gyration in PyMOL with the command:")
+    print("pseudoatom tmpPoint, pos=[", cmx, "," , cmy, "," , cmz, "], vdw=", rg)
+    print("Remeber to select tmpPoint and show as Spheres")
+
+    # Determine Longest distance in the structure
+    Longest = 0
+     
+    return(round(rg, 1 ), Longest)
 
 if __name__ == '__main__':
     print('Rg = {}'.format(Rg(sys.argv[1])))
