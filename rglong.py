@@ -30,9 +30,18 @@ def RgLong(filename):
     for line in Structure:
         try:
             line = line.split()
-            x = float(line[6])
-            y = float(line[7])
-            z = float(line[8])
+            # Owing to split failing to get correct coordinates for some
+            # alternate conformations where space is removed, I am going to
+            # make a quick and easy and nasty hack here, ideally change things
+            # so that files are imported using the pdbreader library instead
+            if len(line) == 13:
+                x = float(line[6])
+                y = float(line[7])
+                z = float(line[8])
+            elif len(line) == 12:
+                x = float(line[5])
+                y = float(line[6])
+                z = float(line[7])
             coord.append([x, y, z])
             if line[-1] == 'C':
                 mass.append(12.0107)
