@@ -34,31 +34,32 @@ def RgLong(filename):
             # alternate conformations where space is removed, I am going to
             # make a quick and easy and nasty hack here, ideally change things
             # so that files are imported using the pdbreader library instead
-            if len(line) == 13:
-                x = float(line[6])
-                y = float(line[7])
-                z = float(line[8])
-                occ = float(line[9])
-            elif len(line) == 12:
-                x = float(line[5])
-                y = float(line[6])
-                z = float(line[7])
-                occ = float(line[8])
-            coord.append([x, y, z])
-            if line[-1] == 'C':
-                mass.append(12.0107*occ)
-            elif line[-1] == 'O':
-                mass.append(15.9994*occ)
-            elif line[-1] == 'O1-':
-                mass.append(15.9994*occ)
-            elif line[-1] == 'N':
-                mass.append(14.0067*occ)
-            elif line[-1] == 'N1+':
-                mass.append(14.0067*occ)
-            elif line[-1] == 'S':
-                mass.append(32.065*occ)
-            elif line[-1] == 'H':
-                mass.append(1.00794*occ)
+            if line[0] == "ATOM":
+                if len(line) == 13:
+                    x = float(line[6])
+                    y = float(line[7])
+                    z = float(line[8])
+                    occ = float(line[9])
+                elif len(line) == 12:
+                    x = float(line[5])
+                    y = float(line[6])
+                    z = float(line[7])
+                    occ = float(line[8])
+                coord.append([x, y, z])
+                if line[-1] == 'C':
+                    mass.append(12.0107*occ)
+                elif line[-1] == 'O':
+                    mass.append(15.9994*occ)
+                elif line[-1] == 'O1-':
+                    mass.append(15.9994*occ)
+                elif line[-1] == 'N':
+                    mass.append(14.0067*occ)
+                elif line[-1] == 'N1+':
+                    mass.append(14.0067*occ)
+                elif line[-1] == 'S':
+                    mass.append(32.065*occ)
+                elif line[-1] == 'H':
+                    mass.append(1.00794*occ)
         except:
             pass
     Structure.close()
