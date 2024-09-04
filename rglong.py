@@ -50,6 +50,7 @@ def RgLong(filename):
                 mass.append(1.00794)
         except:
             pass
+    Structure.close()
     
     
     # Determine Center of Mass Coordinates and Total Mass
